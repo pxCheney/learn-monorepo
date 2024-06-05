@@ -36,6 +36,8 @@ export default auth((req) => {
     "i",
   );
 
+  return intlMiddleware(req);
+
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
   if (isPublicPage) {
     return intlMiddleware(req);
