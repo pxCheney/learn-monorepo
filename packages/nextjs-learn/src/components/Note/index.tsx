@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import NotePreview from "@/components/NotePreview";
 import EditButton from "@/components/EditButton";
-import { IData } from "@/lib/redis";
+import { IData } from "@/lib/strapi";
 
 export default function Note({
   noteId,

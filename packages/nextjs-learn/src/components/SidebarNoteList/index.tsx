@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { getAllNotes, IData } from "@/lib/redis";
+import { getAllNotes, IData } from "@/lib/strapi";
 import { sleep } from "@/lib/utils";
 import SidebarNoteListFilter from "@/components/SidebarNoteListFilter";
 

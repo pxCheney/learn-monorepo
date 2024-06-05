@@ -4,7 +4,8 @@
   "info": {
     "singularName": "note",
     "pluralName": "notes",
-    "displayName": "Note"
+    "displayName": "Note",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -31,21 +32,18 @@
       },
       "type": "text"
     },
-    "updateTime": {
+    "slug": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "datetime"
-    },
-    "createTime": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[0-9]{8}$",
+        "disable-regenerate": true
       },
-      "type": "datetime"
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }
