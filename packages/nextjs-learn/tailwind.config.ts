@@ -25,6 +25,6 @@ const config: Config = {
       {},
     ) as ResolvableTo<KeyValuePair<string, string>>,
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
 export default config;

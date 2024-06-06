@@ -5,28 +5,14 @@ import type { NextRequest } from "next/server";
 
 import { auth } from "@/auth";
 
+const publicPages = ["/", "/auth/signin"];
+
 export const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
   // 默认语言不重定向
   localePrefix: "as-needed",
 });
-
-const authMiddleware = auth((req) => {
-  console.log("PX-middle", req.auth);
-  if (req.auth) return intlMiddleware(req);
-  const reqUrl = new URL(req.url);
-  if (!req.auth && reqUrl?.pathname !== "/") {
-    return NextResponse.redirect(
-      new URL(
-        `/api/auth/signin?callbackUrl=${encodeURIComponent(reqUrl?.pathname)}`,
-        req.url,
-      ),
-    );
-  }
-});
-
-const publicPages = ["/", "/login"];
 
 export default auth((req) => {
   const publicPathnameRegex = RegExp(
@@ -36,13 +22,11 @@ export default auth((req) => {
     "i",
   );
 
-  return intlMiddleware(req);
-
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
-  if (isPublicPage) {
+  if (isPublicPage || req.auth) {
     return intlMiddleware(req);
   }
-  if (req.auth) return intlMiddleware(req);
+
   const reqUrl = new URL(req.url);
   return NextResponse.redirect(
     new URL(
@@ -54,6 +38,7 @@ export default auth((req) => {
 export const config = {
   matcher: [
     // "/((?!api|_next|_vercel|.*\\..*).*)",
+    // "/((?!api|_next/static|_next/image|favicon.ico).*)",
     "/((?!api|_next/static|_next/image|favicon.ico|_vercel|.*\\..*).*)",
   ],
 };
