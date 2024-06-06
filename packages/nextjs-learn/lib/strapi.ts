@@ -40,7 +40,7 @@ async function addNote(data) {
   return res.data.attributes.slug;
 }
 
-async function updateNote(uuid: number, data) {
+async function updateNote(uuid: string, data) {
   const { id } = await getNote(uuid);
   const response = await fetch(`${API_URL}/api/notes/${id}`, {
     method: "PUT",
@@ -55,7 +55,7 @@ async function updateNote(uuid: number, data) {
   const res = await response.json();
 }
 
-async function getNote(uuid: number) {
+async function getNote(uuid: string) {
   const response = await fetch(
     `${API_URL}/api/notes?filters[slug][$eq]=${uuid}`,
   );
@@ -68,7 +68,7 @@ async function getNote(uuid: number) {
   };
 }
 
-async function delNote(uuid: number) {
+async function delNote(uuid: string) {
   const { id } = await getNote(uuid);
   const response = await fetch(`${API_URL}/api/notes/${id}`, {
     method: "DELETE",

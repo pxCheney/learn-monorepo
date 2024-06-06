@@ -33,7 +33,7 @@ export async function saveNote(prevState, formData: FormData) {
 
   // 更新数据库
   if (noteId) {
-    await updateNote(noteId, JSON.stringify(data));
+    await updateNote(noteId as string, JSON.stringify(data));
     revalidatePath("/", "layout");
   } else {
     await addNote(JSON.stringify(data));
@@ -45,7 +45,7 @@ export async function saveNote(prevState, formData: FormData) {
 
 export async function deleteNote(prevState, formData: FormData) {
   const noteId = formData.get("noteId");
-  await delNote(noteId);
+  await delNote(noteId as string);
   revalidatePath("/", "layout");
   redirect("/");
   return { message: `Delete Success!` };

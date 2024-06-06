@@ -1,6 +1,7 @@
 import { signIn, signOut, auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
+import Panda from "@/public/panda.png";
 
 function SignIn({ provider, ...props }: { provider?: any }) {
   return (
@@ -46,10 +47,10 @@ export default async function Header({ children }) {
         {session?.user ? (
           <div className="flex items-center">
             <Image
-              src={session?.user?.image!}
+              src={session?.user?.image! || Panda}
               alt="avatar"
-              width={52}
-              height={52}
+              width={48}
+              height={48}
               className="block rounded-full mr-8"
             />
             <div className="mr-10">
