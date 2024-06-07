@@ -29,7 +29,6 @@ const providers: Provider[] = [
       // 默认情况下不对用户输入进行验证，确保使用 Zod 这样的库进行验证
       let user;
 
-      console.log("PX", credentials);
       // 登陆信息验证
       user = await getUser(credentials.username, credentials.password);
 

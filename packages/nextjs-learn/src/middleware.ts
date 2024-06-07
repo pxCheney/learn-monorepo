@@ -1,7 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { locales, defaultLocale } from "@/config";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { MiddlewareConfig, NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 
@@ -35,7 +34,7 @@ export default auth((req) => {
     ),
   );
 });
-export const config = {
+export const config: MiddlewareConfig = {
   matcher: [
     // "/((?!api|_next|_vercel|.*\\..*).*)",
     // "/((?!api|_next/static|_next/image|favicon.ico).*)",

@@ -1,30 +1,26 @@
-import { signIn } from "@/auth";
-import querystring from "querystring";
+"use client";
 
-console.log(
-  "querystring",
-  querystring.parse(
-    decodeURIComponent(
-      "http://localhost:3000/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fnote%2Fedit",
-    ),
-  ),
-);
+import { useEffect, useState } from "react";
 
-export default async function SignIn() {
+export default function SignIn() {
+  // TODO: 通过 "use server" 使用 auth 中 signin 方法
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/auth/csrf")
+      .then((response) => response.json())
+      .then((data) => setCsrfToken(data.csrfToken));
+  }, []);
+
   return (
     <div>
       <h3 className="text-center mb-10">auth signin</h3>
       <form
-        action={async (formData) => {
-          "use server";
-
-          const response = await fetch("http://localhost:3000/api/auth/csrf");
-          const { csrfToken } = await response.json();
-          formData.append("csrfToken", csrfToken);
-          const resp = await signIn("credentials", formData);
-        }}
+        method="post"
+        action="/api/auth/callback/credentials"
         className="flex flex-col items-center"
       >
+        <input type="hidden" name="csrfToken" value={csrfToken} />
         <label className="input input-bordered flex items-center gap-12">
           UserName
           <input
